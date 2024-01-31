@@ -2,6 +2,8 @@
 
 import { api } from "@/utils/api";
 import { VideoPlayer } from "@/components/VideoPlayer";
+import cl from "./lesson.module.scss";
+
 import {
   LessonAttachmentsParams,
   LessonPageProps,
@@ -40,9 +42,11 @@ const LecturePage = ({ params }: LessonPageProps) => {
     execute();
   }, [params]);
   return (
-    <div>
-      lesson
-      <VideoPlayer userId={-1} videoId={105} />
+    <div className={cl.lessonPage}>
+      <div>
+        <VideoPlayer userId={-1} videoId={105} />
+      </div>
+      <div>attachment index</div>
     </div>
   );
 };

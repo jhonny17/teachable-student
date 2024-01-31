@@ -1,0 +1,10 @@
+.lessonLayout {
+  display: grid;
+  height: 100dvh;
+  grid-template-areas:
+    "nav nav nav nav nav"
+    "sidebar content content content content"
+    "sidebar content content content content"
+    "sidebar content content content content"
+    "sidebar content content content content";
+}
