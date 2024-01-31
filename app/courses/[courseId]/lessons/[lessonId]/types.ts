@@ -46,9 +46,42 @@ export type ResponseAttachments = {
   attachments: Attachment[];
 };
 
+export type RouteParams = {
+  courseId: string;
+  lessonId: string;
+};
+
 export type LessonPageProps = {
-  params: {
-    courseId: string;
-    lessonId: string;
-  };
+  params: RouteParams;
+};
+
+export type Lecture = {
+  course_id: number;
+  created_at: string;
+  description: string | null;
+  download: boolean;
+  free_preview: boolean;
+  id: number;
+  is_published: boolean;
+  lecture_section_id: number;
+  meta: any;
+  name: string;
+  position: number;
+};
+
+export type LectureSection = {
+  course_id: number;
+  created_at: string;
+  description: string | null;
+  // drip_content: DripContent | null;
+  drip_content_id: number;
+  id: number;
+  image_alt_text: string | null;
+  image_url: string | null;
+  is_published: boolean;
+  lectures: Lecture[];
+  meta: any;
+  name: string;
+  position: string;
+  lecture_sections: LectureSection[];
 };

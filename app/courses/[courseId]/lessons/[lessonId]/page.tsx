@@ -1,20 +1,23 @@
 "use client";
 
+import { useEffect } from "react";
+
 import { api } from "@/utils/api";
+import { FEDORA_HOST } from "@/utils/constants";
 import { VideoPlayer } from "@/components/VideoPlayer";
-import cl from "./lesson.module.scss";
 
 import {
   LessonAttachmentsParams,
   LessonPageProps,
   ResponseAttachments,
 } from "./types";
-import { useEffect } from "react";
+
+import cl from "./lesson.module.scss";
 
 const initAdmin = async ({ courseId, lessonId }: LessonAttachmentsParams) => {
   try {
     const data = await api<ResponseAttachments>(
-      `http://business-school.worksonmy.computer:3000/api/v1/courses/${courseId}/lectures/${lessonId}/attachments`
+      `${FEDORA_HOST}/api/v1/courses/${courseId}/lectures/${lessonId}/attachments`
     );
 
     return data.attachments;
@@ -32,7 +35,7 @@ const LecturePage = ({ params }: LessonPageProps) => {
   return (
     <div className={cl.lessonPage}>
       <div>
-        <VideoPlayer userId={-1} videoId={105} />
+        <VideoPlayer userId={-1} videoId={2} />
       </div>
       <div>attachment index</div>
     </div>

@@ -5,6 +5,7 @@ export const api = <T>(url: string | URL | Request, params?: RequestInit) => {
     Cookie: process.env.COOKIE,
     "x-csrf-token": process.env.X_CSRF_TOKEN,
   } as RequestInit["headers"];
+
   return fetch(url, {
     ...(params ?? {}),
     headers: {

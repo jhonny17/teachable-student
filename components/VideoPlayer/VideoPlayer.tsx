@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 
 import { api } from "@/utils/api";
+import { FEDORA_HOST } from "@/utils/constants";
 
 import {
   Status,
@@ -13,7 +14,7 @@ import {
 import cl from "./VideoPlayer.module.scss";
 
 const fetchPrivateVideo = async (attachmentId: number) => {
-  const endpoint = `http://business-school.worksonmy.computer:3000/api/v2/hotmart/private_video?attachment_id=${attachmentId}`;
+  const endpoint = `${FEDORA_HOST}/api/v2/hotmart/private_video?attachment_id=${attachmentId}`;
   const response = await api(endpoint);
 
   return { data: response } as { data?: VideoDataType };
@@ -80,7 +81,6 @@ export const VideoPlayer = ({ userId, videoId }: VideoPlayerProps) => {
   }, [videoId]);
 
   const { signature, teachable_application_key, video_id, status } = data ?? {};
-  const url = `https://player.hotmart.com/embed/${video_id}?signature=${signature}&token=${teachable_application_key}`;
 
   return (
     <EmbedVideoPlayer
