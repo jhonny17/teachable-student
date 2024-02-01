@@ -1,5 +1,12 @@
 .lessonPage {
   display: grid;
-  height: 100dvh;
-  grid-template-columns: 1fr 200px;
+  overflow-y: auto;
+  max-height: 100dvh;
+  gap: var(--size-4);
+  grid-template-columns: 1fr 175px;
+
+  & > :last-child {
+    padding-left: var(--size-4);
+    border-left: var(--size-1) solid var(--color-line-primary);
+  }
 }

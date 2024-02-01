@@ -13,6 +13,7 @@
     "@usefedora/fonts": "^1.31.78",
     "@usefedora/icons": "^1.31.78",
     "@usefedora/ui": "^1.31.78",
+    "@usefedora/uni": "^1.31.78",
     "classnames": "^2.5.1",
     "next": "14.1.0",
     "react": "^18",
