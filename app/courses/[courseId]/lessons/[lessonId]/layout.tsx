@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import resetStyles from "@usefedora/ui/public/reset";
@@ -12,6 +13,7 @@ import { LectureSection, RouteParams } from "./types";
 
 import cl from "./layout.module.scss";
 import { Heading, List, ListElement } from "@usefedora/ui";
+import { usePrevious } from "@/hooks/usePrevious";
 
 type LecturePageLayoutProps = {
   params: RouteParams;
@@ -33,20 +35,32 @@ export const getCourseLectures = async (courseId: string) => {
   return lectureSections;
 };
 
-const LectureSectionItem = ({ section }: { section: LectureSection }) => {
+const LectureSectionItem = ({
+  section,
+  params,
+}: {
+  section: LectureSection;
+  params: RouteParams;
+}) => {
   const { name, lectures } = section;
+  const { courseId, lessonId } = params;
   return (
     <>
       <Heading level={3}>{name}</Heading>
-      {lectures.map((lecture) => (
-        <ListElement key={lecture.id}>{lecture.name}</ListElement>
+      {lectures.map(({ id, name, course_id }) => (
+        <Link key={id} href={`/courses/${course_id}/lessons/${id}`}>
+          <ListElement active={course_id === +courseId && id === +lessonId}>
+            {name}
+          </ListElement>
+        </Link>
       ))}
     </>
   );
 };
 
 const LecturePageLayout = ({ children, params }: LecturePageLayoutProps) => {
-  const { courseId } = params;
+  const { courseId, lessonId } = params;
+  const previousCourseId = usePrevious(courseId);
   const [lectureSections, setLectureSections] = useState<LectureSection[]>([]);
 
   useEffect(() => {
@@ -56,10 +70,11 @@ const LecturePageLayout = ({ children, params }: LecturePageLayoutProps) => {
   }, []);
 
   useEffect(() => {
+    if (courseId === previousCourseId) return;
     getCourseLectures(courseId).then(({ lecture_sections }) =>
       setLectureSections(lecture_sections)
     );
-  }, [courseId]);
+  }, [courseId, previousCourseId]);
 
   return (
     <div className={cl.lessonLayout}>
@@ -67,7 +82,11 @@ const LecturePageLayout = ({ children, params }: LecturePageLayoutProps) => {
       <aside className={cl.asideLessonLayout}>
         <List className={cl.lessonList}>
           {lectureSections.map((section) => (
-            <LectureSectionItem key={section.id} section={section} />
+            <LectureSectionItem
+              key={section.id}
+              section={section}
+              params={params}
+            />
           ))}
         </List>
       </aside>
