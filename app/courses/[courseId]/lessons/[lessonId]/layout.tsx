@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import resetStyles from "@usefedora/ui/public/reset";
 import commonStyles from "@usefedora/ui/public/common";
@@ -27,7 +27,7 @@ function injectStyles(css: string): void {
 }
 
 const LecturePageLayout = ({ children, params }: LecturePageLayoutProps) => {
-  const { courseId } = params;
+  const { courseId, lessonId } = params;
   const [lectureIds, setLecturesIds] = useState<number[]>([]);
   const [lectureSections, setLectureSections] = useState<LectureSection[]>([]);
 
@@ -61,13 +61,28 @@ const LecturePageLayout = ({ children, params }: LecturePageLayoutProps) => {
     injectStyles(tokensStyles);
   }, []);
 
+  const lessonName = useMemo(() => {
+    const lectureId = Number(lessonId);
+    const currentLectureSection = lectureSections.find((section) =>
+      section.lectures.some((lecture) => lecture.id === lectureId)
+    );
+
+    if (!currentLectureSection) return "New Lesson";
+
+    const currentLesson = currentLectureSection.lectures.find(
+      (lecture) => lecture.id === lectureId
+    );
+
+    return currentLesson?.name ?? "New Lesson";
+  }, [lessonId, lectureSections]);
+
   return (
     <div className={cl.lessonLayout}>
       <NavBar
         params={params}
         courseProgress={50}
         lectureIds={lectureIds}
-        lessonTitle="New Lesson"
+        lessonTitle={lessonName}
         className={cl.navbarLessonLayout}
       />
       <aside className={cl.asideLessonLayout}>
