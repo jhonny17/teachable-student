@@ -8,3 +8,15 @@
     "sidebar content content content content"
     "sidebar content content content content";
 }
+
+.asideLessonLayout {
+  height: 100%;
+  max-width: 250px;
+  grid-area: sidebar;
+
+  .lessonList {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+  }
+}
