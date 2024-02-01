@@ -80,7 +80,7 @@ const LecturePageLayout = ({ children, params }: LecturePageLayoutProps) => {
     <div className={cl.lessonLayout}>
       <NavBar
         params={params}
-        courseProgress={50}
+        courseProgress={67}
         lectureIds={lectureIds}
         lessonTitle={lessonName}
         className={cl.navbarLessonLayout}
