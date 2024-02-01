@@ -6,6 +6,7 @@ import commonStyles from "@usefedora/ui/public/common";
 import tokensStyles from "@usefedora/uni/public/tokens";
 
 import { RouteParams } from "./types";
+import { NavBar } from "@/components/NavBar";
 import { Sidebar } from "./components/Sidebar";
 
 import cl from "./layout.module.scss";
@@ -31,7 +32,9 @@ const LecturePageLayout = ({ children, params }: LecturePageLayoutProps) => {
 
   return (
     <div className={cl.lessonLayout}>
-      <nav className={cl.navbarLessonLayout}>navbar</nav>
+      <nav className={cl.navbarLessonLayout}>
+        <NavBar lessonTitle="New Lesson" courseProgress={50} />
+      </nav>
       <aside className={cl.asideLessonLayout}>
         <Sidebar params={params} />
       </aside>
