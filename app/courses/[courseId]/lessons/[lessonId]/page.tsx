@@ -44,29 +44,29 @@ const LecturePage = ({ params }: LessonPageProps) => {
   }, [params]);
   return (
     <div className={cl.lessonPage}>
-      <div>
+      <div className={cl.attachment_list_header}>
         <VideoPlayer userId={-1} videoId={10} />
-        {attachmentList.map((attachment: Attachment)=> (
-          <div key={attachment.name || 'text'}>
-            <h2 id={attachment.name}>{attachment.name || '--'}</h2>
-            {attachment.text || ''}
+        {attachmentList.map((attachment: Attachment, index: number)=> (
+          <div key={attachment.name || 'text'} >
+            <h2 id={attachment.name || `lesson-text-${index}`}>{attachment.name || `Lesson Text ${index}`}</h2>
+            <span dangerouslySetInnerHTML={{ __html: attachment.text || ' ' }} />
           </div>
         ))}
       </div>
       <div className={cl.attachments_sideSection}>
         <nav className={`${sc.marginLeftS} + ${sc.marginTopM} `}>
           <div className={'p-b-4-xs dsp-flex-xs flex-align-items-center-xs'}>
-            <h2 id="outline-header"
-                className={`${tc.headingDisplay2} + 'm-r-3-xs' + ${cl.outlineHeaderText}`}
+            <h2
+                className={`${tc.headingDisplay2} + ' m-r-3-xs ' + ${cl.outlineHeaderText}`}
                 >
                   In this lesson
             </h2>
           </div>
           <div role="menu" className={cl.scrollContainer}>
             <ul className={cl.attachmentList}>
-                {attachmentList.map((attachment: Attachment)=> (
+                {attachmentList.map((attachment: Attachment, index: number)=> (
                   <li key={"item " + `${attachment.name}`} className={`${tc.bodyTextExtraSmallLink} + uni-ph-16 uni-pv-8 dsp-block-xs item`}>
-                    <a href={'#' + attachment.name}>{attachment.name || 'Lesson Text'}</a>
+                    <a href={attachment.name ? '#' + attachment.name : `#lesson-text-${index}`}>{attachment.name || `Lesson Text ${index}`}</a>
                   </li>
                   ))
                 }
