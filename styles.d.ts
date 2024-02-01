@@ -16,5 +16,8 @@ declare module "@usefedora/ui/public/spacing-modules" {
 }
 declare module "@usefedora/ui/public/type-modules" {
   const commonStyles: string;
+}
+declare module "@usefedora/ui/public/type-modules" {
+  const commonStyles: any;
   export default commonStyles;
 }
