@@ -32,9 +32,11 @@ const LecturePageLayout = ({ children, params }: LecturePageLayoutProps) => {
 
   return (
     <div className={cl.lessonLayout}>
-      <nav className={cl.navbarLessonLayout}>
-        <NavBar lessonTitle="New Lesson" courseProgress={50} />
-      </nav>
+      <NavBar
+        lessonTitle="New Lesson"
+        courseProgress={50}
+        className={cl.navbarLessonLayout}
+      />
       <aside className={cl.asideLessonLayout}>
         <Sidebar params={params} />
       </aside>

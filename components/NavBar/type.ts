@@ -1,4 +1,5 @@
 export type NavBarProps = {
-    lessonTitle: string;
-    courseProgress: number;
-  };
+  lessonTitle: string;
+  courseProgress: number;
+  className?: string;
+};

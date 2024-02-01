@@ -1,69 +1,57 @@
 .navbar {
-    height: 100%;
-    width: 100%;
-    background-color: #2b3636;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  gap: var(--size-8);
+  align-items: center;
+  padding: 0 var(--size-16);
+  justify-content: space-between;
+  background-color: #2b3636;
+
+  * {
+    color: var(--color-line-primary);
   }
 
-  .details {
+  .courseDetails {
     height: 100%;
     display: flex;
-    flex-grow: 2;
-    margin-left: var(--space-16);
+    gap: var(--size-16);
     align-items: center;
-  }
 
-.lessonTitle {
-    font-family: var(--font-family-display);
-    font-size: var(--font-size-24);
-    font-weight: 300;
-    color: white;
-    margin-right: var(--space-16);
-}
-
-.courseProgress {
-    font-family: var(--font-family-display);
-    font-size: 24px;
-    font-weight: 300;
-    color: white;
-    display: flex;
-    align-content: center;
-    margin-left: var(--space-16);
-}
-
-.progressBar{
-    accent-color: var(--color-brand-primary-100);
-}
-
-.progressBar::-webkit-progress-bar{
-    background-color: #000;
-    width: 100%;
-}
-
-.buttons {
-    height: 100%;
-    display: flex;
-    margin-right: var(--space-16);
-    align-items: center;
-}
-
-.navButtonPrevious {
-    font-family: var(--font-family-display) !important;
-    color: white !important;
-    border-color: white !important;
-    background-color: transparent !important;
-    height: 70% !important;
-}
-
-.navButtonContinue {
-    margin-left: var(--space-16);
-    font-family: var(--font-family-display) !important;
-    color: white !important;
-    border-color: white !important;
-    height: 70% !important;
-    &:hover{
-        background-color: var(--color-grey-20) !important;
+    .lessonTitle {
+      max-width: 20dvw;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      color: var(--color-line-primary);
+      font-size: var(--font-size-16) !important;
     }
+
+    .progressGroup {
+      display: flex;
+      gap: var(--size-8);
+      align-items: center;
+
+      .progressBar {
+        width: 100px;
+        accent-color: var(--color-brand-primary-100);
+      }
+
+      .progressBar::-webkit-progress-bar {
+        background-color: #000;
+        width: 100%;
+      }
+    }
+  }
+
+  .buttons {
+    height: 100%;
+    display: flex;
+    gap: var(--size-8);
+    align-items: center;
+
+    button {
+      padding: var(--size-8) var(--size-12) !important;
+    }
+  }
 }
