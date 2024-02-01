@@ -1,54 +1,26 @@
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { List } from "@usefedora/ui";
 
-import { api } from "@/utils/api";
-import { FEDORA_HOST } from "@/utils/constants";
-import { usePrevious } from "@/hooks/usePrevious";
 import { useEventListener } from "@/hooks/useEventListener";
 
 import { LectureSection, RouteParams } from "../../types";
-
 import { LectureSectionItem } from "../LectureSectionItem";
 import cl from "./Sidebar.module.scss";
-import { useRouter } from "next/navigation";
 
 export type SidebarProps = {
   params: RouteParams;
+  lectureIds: number[];
+  lectureSections: LectureSection[];
 };
 
-export const Sidebar = ({ params }: SidebarProps) => {
+export const Sidebar = ({
+  params,
+  lectureSections,
+  lectureIds,
+}: SidebarProps) => {
   const router = useRouter();
-
   const { courseId, lessonId } = params;
-  const previousCourseId = usePrevious(courseId);
-  const [lectureIds, setLecturesIds] = useState<number[]>([]);
-  const [lectureSections, setLectureSections] = useState<LectureSection[]>([]);
-
-  const getCourseLectures = async (courseId: string) => {
-    const lectureSections = await api<LectureSection>(
-      `${FEDORA_HOST}/api/v1/courses/${courseId}/lecture_sections`
-    );
-
-    return lectureSections;
-  };
-
-  const saveLectureIds = (lectureSections: LectureSection[]) => {
-    const ids = lectureSections.reduce((acc, section) => {
-      const lectureIds = section.lectures.map((lecture) => lecture.id);
-      return [...acc, ...lectureIds];
-    }, [] as number[]);
-
-    setLecturesIds(ids);
-  };
-
-  useEffect(() => {
-    if (courseId === previousCourseId) return;
-    getCourseLectures(courseId).then(({ lecture_sections }) => {
-      saveLectureIds(lecture_sections);
-      setLectureSections(lecture_sections);
-    });
-  }, [courseId, previousCourseId]);
 
   const goToPreviousLecture = () => {
     const currentLectureIndex = lectureIds.indexOf(Number(lessonId));
