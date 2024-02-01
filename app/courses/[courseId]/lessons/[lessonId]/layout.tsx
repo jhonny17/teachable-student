@@ -63,7 +63,7 @@ const LecturePageLayout = ({ children, params }: LecturePageLayoutProps) => {
 
   return (
     <div className={cl.lessonLayout}>
-      <nav style={{ gridArea: "nav" }}>navbar</nav>
+      <nav className={cl.navbarLessonLayout}>navbar</nav>
       <aside className={cl.asideLessonLayout}>
         <List className={cl.lessonList}>
           {lectureSections.map((section) => (
@@ -71,7 +71,7 @@ const LecturePageLayout = ({ children, params }: LecturePageLayoutProps) => {
           ))}
         </List>
       </aside>
-      <main style={{ gridArea: "content" }}>content{children}</main>;
+      <main className={cl.contentLessonLayout}>{children}</main>
     </div>
   );
 };
