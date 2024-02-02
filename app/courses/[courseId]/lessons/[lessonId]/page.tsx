@@ -3,10 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { api } from "@/utils/api";
-import sc from '@usefedora/ui/public/spacing-modules'
-import tc from '@usefedora/ui/public/type-modules'
 import { FEDORA_HOST } from "@/utils/constants";
-import { VideoPlayer } from "@/components/VideoPlayer";
 
 import {
   Attachment,
@@ -16,7 +13,9 @@ import {
 } from "./types";
 
 import cl from "./lesson.module.scss";
-import { List, ListElement } from '@usefedora/ui'
+import { AttachmentSelector } from "./components/AttachmentSelector";
+import { Heading, List, ListElement } from "@usefedora/ui";
+import { getStringFromHtml } from "@/utils/getStringFromHtml";
 
 const initAdmin = async ({ courseId, lessonId }: LessonAttachmentsParams) => {
   try {
@@ -35,7 +34,6 @@ const LecturePage = ({ params }: LessonPageProps) => {
       try {
         const attachments = await initAdmin(params);
         setAttachmentList(attachments);
-
       } catch (error) {
         return null;
       }
@@ -44,37 +42,44 @@ const LecturePage = ({ params }: LessonPageProps) => {
   }, [params]);
   return (
     <div className={cl.lessonPage}>
-      <div className={cl.attachment_list_header}>
-        <VideoPlayer userId={-1} videoId={10} />
-        {attachmentList.map((attachment: Attachment, index: number)=> (
-          <div key={attachment.name || 'text'} >
-            <h2 id={attachment.name || `lesson-text-${index}`}>{attachment.name || `Lesson Text ${index}`}</h2>
-            <span dangerouslySetInnerHTML={{ __html: attachment.text || ' ' }} />
-          </div>
-        ))}
+      <div className={cl.lessonAttachmentContainer}>
+        {attachmentList.map((attachment: Attachment) => {
+          const { id } = attachment;
+          return <AttachmentSelector key={id} attachment={attachment} />;
+        })}
       </div>
-      <div className={cl.attachments_sideSection}>
-        <nav className={`${sc.marginLeftS} + ${sc.marginTopM} `}>
-          <div className={'p-b-4-xs dsp-flex-xs flex-align-items-center-xs'}>
-            <h2
-                className={`${tc.headingDisplay2} + ' m-r-3-xs ' + ${cl.outlineHeaderText}`}
-                >
-                  In this lesson
-            </h2>
-          </div>
-          <div role="menu" className={cl.scrollContainer}>
-            <ul className={cl.attachmentList}>
-                {attachmentList.map((attachment: Attachment, index: number)=> (
-                  <li key={"item " + `${attachment.name}`} className={`${tc.bodyTextExtraSmallLink} + uni-ph-16 uni-pv-8 dsp-block-xs item`}>
-                    <a href={attachment.name ? '#' + attachment.name : `#lesson-text-${index}`}>{attachment.name || `Lesson Text ${index}`}</a>
-                  </li>
-                  ))
-                }
+      <nav className={cl.lessonAttachmentIndex}>
+        <List className={cl.indexAttachmentList}>
+          <Heading level={3}>In this lesson</Heading>
+          {attachmentList.map((attachment: Attachment, index: number) => {
+            const { id, name, text } = attachment;
+            let value: string | null | undefined = name;
 
-            </ul>
-          </div>
-        </nav>
-      </div>
+            if (!value) {
+              value = getStringFromHtml(text ?? "")?.slice(0, 50);
+              if (value) {
+                value += "...";
+              }
+            }
+
+            if (!value) {
+              value = `Block ${index + 1}`;
+            }
+
+            return (
+              <a
+                key={`index-${id}`}
+                href={`#${id}`}
+                className={cl.indexAttachmentListItem}
+              >
+                <ListElement>
+                  <span dangerouslySetInnerHTML={{ __html: value }} />
+                </ListElement>
+              </a>
+            );
+          })}
+        </List>
+      </nav>
     </div>
   );
 };

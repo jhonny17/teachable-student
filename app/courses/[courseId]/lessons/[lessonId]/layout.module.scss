@@ -18,7 +18,8 @@
 
 .contentLessonLayout {
   grid-area: content;
-  // overflow-y: auto;
-  padding: 0 var(--size-20);
+  overflow-y: auto;
+  .lessonHeader {
+    padding: var(--size-24) var(--size-24) var(--size-12) var(--size-24);
+  }
 }
-

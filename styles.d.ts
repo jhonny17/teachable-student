@@ -11,11 +11,8 @@ declare module "@usefedora/uni/public/tokens" {
   export default commonStyles;
 }
 declare module "@usefedora/ui/public/spacing-modules" {
-  const commonStyles: string;
+  const commonStyles: any;
   export default commonStyles;
-}
-declare module "@usefedora/ui/public/type-modules" {
-  const commonStyles: string;
 }
 declare module "@usefedora/ui/public/type-modules" {
   const commonStyles: any;

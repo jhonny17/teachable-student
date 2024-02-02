@@ -42,6 +42,5 @@ export type EmbedVideoPlayerProps = {
 };
 
 export type VideoPlayerProps = {
-  userId: number;
   videoId: number;
 };

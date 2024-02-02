@@ -71,7 +71,7 @@ export const EmbedVideoPlayer = ({
   );
 };
 
-export const VideoPlayer = ({ userId, videoId }: VideoPlayerProps) => {
+export const VideoPlayer = ({ videoId }: VideoPlayerProps) => {
   const [data, setData] = useState<VideoDataType | null>(null);
 
   useEffect(() => {

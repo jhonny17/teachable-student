@@ -1,10 +1,10 @@
 "use client";
+import cx from "classnames";
 import { useEffect, useMemo, useState } from "react";
 
 import resetStyles from "@usefedora/ui/public/reset";
 import commonStyles from "@usefedora/ui/public/common";
 import tokensStyles from "@usefedora/uni/public/tokens";
-import sc from '@usefedora/ui/public/spacing-modules';
 
 import { api } from "@/utils/api";
 import { FEDORA_HOST } from "@/utils/constants";
@@ -14,6 +14,7 @@ import { Sidebar } from "./components/Sidebar";
 import { LectureSection, RouteParams } from "./types";
 
 import cl from "./layout.module.scss";
+import { PageHeader } from "@usefedora/ui";
 
 type LecturePageLayoutProps = {
   params: RouteParams;
@@ -93,7 +94,15 @@ const LecturePageLayout = ({ children, params }: LecturePageLayoutProps) => {
           lectureIds={lectureIds}
         />
       </aside>
-      <main className={cl.contentLessonLayout}>{children}</main>
+      <main className={cl.contentLessonLayout}>
+        <PageHeader
+          title={lessonName}
+          level={1}
+          sidebarToggle
+          className={cl.lessonHeader}
+        />
+        {children}
+      </main>
     </div>
   );
 };
