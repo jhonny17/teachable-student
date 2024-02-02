@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import cx from "classnames";
 import { useEffect, useState } from "react";
 
 import { Heading, List, ListElement, useEventListener } from "@usefedora/ui";
@@ -41,6 +41,8 @@ const LecturePage = ({ params }: LessonPageProps) => {
 
   const saveAttachmentIds = (attachments: Attachment[]) => {
     const ids = attachments.map((attachment) => attachment.id);
+    const [firstId] = ids;
+    window.location.replace(`#${firstId}`);
     setAttachmentIds(ids);
   };
 
@@ -90,6 +92,18 @@ const LecturePage = ({ params }: LessonPageProps) => {
 
   useEventListener("keydown", trackKeyCourseChanger);
 
+  const setActiveIndexAttachment = (id: number) => {
+    const elements = document.getElementsByClassName(cl.element);
+    for (let i = 0; i < elements.length; i++) {
+      const element = elements[i];
+      if (element.id === `${id}`) {
+        elements[i].classList.add(cl.active);
+      } else {
+        elements[i].classList.remove(cl.active);
+      }
+    }
+  };
+
   return (
     <div className={cl.lessonPage}>
       <div className={cl.lessonAttachmentContainer}>
@@ -122,7 +136,14 @@ const LecturePage = ({ params }: LessonPageProps) => {
                 href={`#${id}`}
                 className={cl.indexAttachmentListItem}
               >
-                <ListElement>
+                <ListElement
+                  id={`${id}`}
+                  className={cx(
+                    cl.element,
+                    attachmentIdParam === `${id}` && cl.active
+                  )}
+                  onClick={() => setActiveIndexAttachment(id)}
+                >
                   <span dangerouslySetInnerHTML={{ __html: value }} />
                 </ListElement>
               </a>

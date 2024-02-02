@@ -28,6 +28,12 @@ $height: calc(100dvh - var(--size-60) - 84.65px);
 
       .indexAttachmentListItem {
         text-decoration: none;
+
+        .element {
+          &.active {
+            border-left: var(--size-2) solid var(--color-brand-primary-100);
+          }
+        }
       }
     }
   }
