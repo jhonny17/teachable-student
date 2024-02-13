@@ -84,7 +84,7 @@ const LecturePageLayout = ({ children, params }: LecturePageLayoutProps) => {
         params={params}
         courseProgress={67}
         lectureIds={lectureIds}
-        lessonTitle={lessonName}
+        lessonTitle={"Rinocerontes voladores"}
         className={cl.navbarLessonLayout}
       />
       <aside className={cl.asideLessonLayout}>

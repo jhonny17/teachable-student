@@ -76,7 +76,6 @@ const LecturePage = ({ params }: LessonPageProps) => {
   };
 
   const trackKeyCourseChanger = (event: KeyboardEvent) => {
-    console.log({ attachmentIds: event.key });
     if (attachmentIds.length <= 0) return;
 
     if (event.altKey && event.key === "ArrowLeft") {

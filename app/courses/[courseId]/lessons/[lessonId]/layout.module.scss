@@ -20,6 +20,7 @@
   grid-area: content;
   overflow-y: auto;
   .lessonHeader {
-    padding: var(--size-24) var(--size-24) var(--size-12) var(--size-24);
+    justify-content: center;
+    padding: var(--size-24) 20dvh var(--size-12) var(--size-24);
   }
 }
