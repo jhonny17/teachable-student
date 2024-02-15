@@ -15,6 +15,7 @@ import { LectureSection, RouteParams } from "./types";
 
 import cl from "./layout.module.scss";
 import { PageHeader } from "@usefedora/ui";
+import { useCourseContext } from "../../contexts/CourseContext";
 
 type LecturePageLayoutProps = {
   params: RouteParams;
@@ -29,33 +30,8 @@ function injectStyles(css: string): void {
 }
 
 const LecturePageLayout = ({ children, params }: LecturePageLayoutProps) => {
-  const { courseId, lessonId } = params;
-  const [lectureIds, setLecturesIds] = useState<number[]>([]);
-  const [lectureSections, setLectureSections] = useState<LectureSection[]>([]);
-
-  const getCourseLectures = async (courseId: string) => {
-    const lectureSections = await api<LectureSection>(
-      `${FEDORA_HOST}/api/v1/courses/${courseId}/lecture_sections`
-    );
-
-    return lectureSections;
-  };
-
-  const saveLectureIds = (lectureSections: LectureSection[]) => {
-    const ids = lectureSections.reduce((acc, section) => {
-      const lectureIds = section.lectures.map((lecture) => lecture.id);
-      return [...acc, ...lectureIds];
-    }, [] as number[]);
-
-    setLecturesIds(ids);
-  };
-
-  useEffect(() => {
-    getCourseLectures(courseId).then(({ lecture_sections }) => {
-      saveLectureIds(lecture_sections);
-      setLectureSections(lecture_sections);
-    });
-  }, [courseId]);
+  const { lessonId } = params;
+  const { lectureIds, lectureSections } = useCourseContext();
 
   useEffect(() => {
     injectStyles(resetStyles);
