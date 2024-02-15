@@ -5,31 +5,17 @@ import { useEffect, useState } from "react";
 
 import { Heading, List, ListElement, useEventListener } from "@usefedora/ui";
 
-import { api } from "@/utils/api";
-import { FEDORA_HOST } from "@/utils/constants";
 import { getStringFromHtml } from "@/utils/getStringFromHtml";
 import { AttachmentSelector } from "@/components/AttachmentSelector";
 
-import {
-  Attachment,
-  LessonAttachmentsParams,
-  LessonPageProps,
-  ResponseAttachments,
-} from "./types";
+import { Attachment, LessonPageProps } from "./types";
 
 import cl from "./lesson.module.scss";
+import { useLessonsContext } from "@/contexts/LessonsContext";
 
-const initAdmin = async ({ courseId, lessonId }: LessonAttachmentsParams) => {
-  try {
-    const data = await api<ResponseAttachments>(
-      `${FEDORA_HOST}/api/v1/courses/${courseId}/lectures/${lessonId}/attachments`
-    );
-    return data.attachments;
-  } catch (error) {
-    return [];
-  }
-};
 const LecturePage = ({ params }: LessonPageProps) => {
+  const { getAttachments } = useLessonsContext();
+
   const [, attachmentIdParam] = window.location.hash.split("#");
 
   const [attachmentIds, setAttachmentIds] = useState<number[]>([]);
@@ -49,7 +35,7 @@ const LecturePage = ({ params }: LessonPageProps) => {
   useEffect(() => {
     const execute = async () => {
       try {
-        const attachments = await initAdmin(params);
+        const attachments = await getAttachments(params);
         setAttachmentList(attachments);
         saveAttachmentIds(attachments);
       } catch (error) {
@@ -57,7 +43,7 @@ const LecturePage = ({ params }: LessonPageProps) => {
       }
     };
     execute();
-  }, [params]);
+  }, [getAttachments, params]);
 
   const goToPreviousAttachment = () => {
     const currentAttachmentIndex = attachmentIds.indexOf(currentAttachmentId);
