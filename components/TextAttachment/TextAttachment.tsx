@@ -2,7 +2,7 @@ import cx from "classnames";
 
 import tc from "@usefedora/ui/public/type-modules";
 
-import { Attachment } from "../../types";
+import { Attachment } from "../../app/courses/[courseId]/lessons/[lessonId]/types";
 
 import cl from "./TextAttachment.module.scss";
 

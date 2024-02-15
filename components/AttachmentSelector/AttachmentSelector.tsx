@@ -1,4 +1,4 @@
-import { Attachment } from "../../types";
+import { Attachment } from "../../app/courses/[courseId]/lessons/[lessonId]/types";
 
 import { TextAttachment } from "../TextAttachment";
 import { ImageAttachment } from "../ImageAttachment";

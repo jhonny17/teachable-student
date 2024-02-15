@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { LectureSection } from "../lessons/[lessonId]/types";
+import { LectureSection } from "../app/courses/[courseId]/lessons/[lessonId]/types";
 import { api } from "@/utils/api";
 import { FEDORA_HOST } from "@/utils/constants";
 

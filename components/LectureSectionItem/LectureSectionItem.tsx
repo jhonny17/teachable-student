@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { Heading, ListElement } from "@usefedora/ui";
-import { LectureSection, RouteParams } from "../../types";
+import {
+  LectureSection,
+  RouteParams,
+} from "../../app/courses/[courseId]/lessons/[lessonId]/types";
 
 export const LectureSectionItem = ({
   section,

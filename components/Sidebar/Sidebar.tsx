@@ -4,7 +4,10 @@ import { List } from "@usefedora/ui";
 
 import { useEventListener } from "@/hooks/useEventListener";
 
-import { LectureSection, RouteParams } from "../../types";
+import {
+  LectureSection,
+  RouteParams,
+} from "../../app/courses/[courseId]/lessons/[lessonId]/types";
 import { LectureSectionItem } from "../LectureSectionItem";
 import cl from "./Sidebar.module.scss";
 

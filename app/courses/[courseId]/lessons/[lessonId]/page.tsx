@@ -8,6 +8,7 @@ import { Heading, List, ListElement, useEventListener } from "@usefedora/ui";
 import { api } from "@/utils/api";
 import { FEDORA_HOST } from "@/utils/constants";
 import { getStringFromHtml } from "@/utils/getStringFromHtml";
+import { AttachmentSelector } from "@/components/AttachmentSelector";
 
 import {
   Attachment,
@@ -17,7 +18,6 @@ import {
 } from "./types";
 
 import cl from "./lesson.module.scss";
-import { AttachmentSelector } from "./components/AttachmentSelector";
 
 const initAdmin = async ({ courseId, lessonId }: LessonAttachmentsParams) => {
   try {

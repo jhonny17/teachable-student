@@ -1,5 +1,5 @@
 import { VideoPlayer } from "@/components/VideoPlayer";
-import { Attachment } from "../../types";
+import { Attachment } from "../../app/courses/[courseId]/lessons/[lessonId]/types";
 
 type VideoAttachmentProps = {
   attachment: Attachment;

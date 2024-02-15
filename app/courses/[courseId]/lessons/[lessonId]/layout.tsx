@@ -1,43 +1,24 @@
 "use client";
-import cx from "classnames";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 
-import resetStyles from "@usefedora/ui/public/reset";
-import commonStyles from "@usefedora/ui/public/common";
-import tokensStyles from "@usefedora/uni/public/tokens";
+import { PageHeader } from "@usefedora/ui";
 
-import { api } from "@/utils/api";
-import { FEDORA_HOST } from "@/utils/constants";
+import { NavBar } from "@/components/NavBar";
+import { Sidebar } from "@/components/Sidebar";
+import { useCourseContext } from "@/contexts/CourseContext";
 
-import { NavBar } from "./components/NavBar";
-import { Sidebar } from "./components/Sidebar";
-import { LectureSection, RouteParams } from "./types";
+import { RouteParams } from "./types";
 
 import cl from "./layout.module.scss";
-import { PageHeader } from "@usefedora/ui";
-import { useCourseContext } from "../../contexts/CourseContext";
 
 type LecturePageLayoutProps = {
   params: RouteParams;
   children: React.ReactNode;
 };
 
-function injectStyles(css: string): void {
-  const style = document.createElement("style");
-  style.type = "text/css";
-  style.appendChild(document.createTextNode(css));
-  document.head.appendChild(style);
-}
-
 const LecturePageLayout = ({ children, params }: LecturePageLayoutProps) => {
   const { lessonId } = params;
   const { lectureIds, lectureSections } = useCourseContext();
-
-  useEffect(() => {
-    injectStyles(resetStyles);
-    injectStyles(commonStyles);
-    injectStyles(tokensStyles);
-  }, []);
 
   const lessonName = useMemo(() => {
     const lectureId = Number(lessonId);
